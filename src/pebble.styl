@@ -1,0 +1,16 @@
+TOKEN = json('./config.json', {hash: true})
+
+//PARSE JSON
+for key, val in TOKEN
+  //skip maps
+  unless substr(key, 0,1) is '$'
+    //Check if val.items is a map
+    if typeof(val.items) is ident
+      for k, v in TOKEN[val.items]
+        .{key}-{k}
+          {val.prop} v
+    //otherwise
+    else
+      for k, v in val.items
+        .{key}-{k}
+          {val.prop} v
